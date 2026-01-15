@@ -1,0 +1,7 @@
+﻿services:
+  audioprocessor:
+    image: audioprocessor
+    build:
+      context: .
+      dockerfile: Dockerfile
+
