@@ -13,8 +13,10 @@ var url = Env.GetString("SUPABASE_URL");
 var key = Env.GetString("SUPABASE_KEY");
 builder.Services.AddScoped(_ => new Client(url, key));
 
+//Services
 builder.Services.AddScoped<IAudioRepository, AudioRepository>();
 builder.Services.AddScoped<IAudioService, AudioService>();
+builder.Services.AddScoped<IAudioCompressorService, AudioCompressorService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -1,7 +1,7 @@
+.idea/
 bin/
 obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
 .env.local
-.idea/.idea.AudioProcessor/.idea

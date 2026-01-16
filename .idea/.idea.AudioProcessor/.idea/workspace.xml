@@ -8,7 +8,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="159aaa88-0297-4660-b9c7-b711f92854c7" name="Changes" comment="" />
+    <list default="true" id="159aaa88-0297-4660-b9c7-b711f92854c7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AudioProcessor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AudioProcessor/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,7 +136,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1768407083037</updated>
-      <workItem from="1768407085225" duration="10322000" />
+      <workItem from="1768407085225" duration="11070000" />
     </task>
     <servers />
   </component>
