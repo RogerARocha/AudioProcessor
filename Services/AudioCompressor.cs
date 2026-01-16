@@ -1,4 +1,5 @@
-﻿using Xabe.FFmpeg;
+﻿using System.Diagnostics;
+using Xabe.FFmpeg;
 
 namespace AudioProcessor.Services;
 
@@ -15,12 +16,27 @@ public class AudioCompressorService : IAudioCompressorService
     {
         var outputPath = Path.Combine(_tempPath, $"{taskId}.aac");
         
-        var conversion = await FFmpeg.Conversions.New()
-            .AddParameter($"-i \"{inputPath}\"")
-            .AddParameter("-c:a aac -b:a 128k")
-            .SetOutput(outputPath)
-            .Start();
+        var stopwatch = Stopwatch.StartNew();//tempo 
 
-        return outputPath;
+        try
+        {
+            var conversion = await FFmpeg.Conversions.New()
+                .AddParameter($"-i \"{inputPath}\"")
+                .AddParameter("-c:a aac -b:a 128k")
+                .SetOutput(outputPath)
+                .Start();
+            
+            stopwatch.Stop();
+            Console.WriteLine($"Conversion Complete to {taskId}");
+            Console.WriteLine($"Time Elapsed: {stopwatch.ElapsedMilliseconds} ms");
+            return outputPath;
+        }
+        catch (Exception ex)
+        {
+            stopwatch.Stop();
+            Console.WriteLine($"Error on Compression for {taskId} after {stopwatch.ElapsedMilliseconds}ms : {ex.Message}");
+            throw;
+        }
+        
     }
 }
