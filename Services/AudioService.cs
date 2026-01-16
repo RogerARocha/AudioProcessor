@@ -13,11 +13,15 @@ public class AudioService : IAudioService
 {
     private readonly IAudioRepository _audioRepository; 
     private readonly Client _supabaseClient;
+
+    private readonly HashSet<string> _allowedFormats;
     
     public AudioService(IAudioRepository audioRepository, Client supabaseClient)
     {
         _audioRepository = audioRepository;
         _supabaseClient = supabaseClient;
+        
+        _allowedFormats = Enum.GetValues<AudioFormat>().Select(x => x.GetExtension()).ToHashSet();
     }
 
     public async Task<AudioData> Upload(IFormFile file)
@@ -26,6 +30,11 @@ public class AudioService : IAudioService
         var uuid = Guid.NewGuid();
         var type = Path.GetExtension(file.FileName);
         var nameInBucket = $"{uuid}{type}";
+
+        if (!_allowedFormats.Contains(type))
+        {
+            throw new NotSupportedException($"File type {type} is not supported.");
+        }
         
         using var ms = new MemoryStream();
         await file.CopyToAsync(ms);
