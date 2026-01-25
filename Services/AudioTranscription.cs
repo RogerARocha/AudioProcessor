@@ -29,12 +29,9 @@ public class AudioTranscriptionService : IAudioTranscriptionService
                 using var fileStream = File.OpenWrite(_modelPath);
                 await modelStream.CopyToAsync(fileStream);
             }
-
-            // Factory pode ser 'using' comum pois é a fábrica de instâncias
+            
             using var factory = WhisperFactory.FromPath(_modelPath);
 
-            // 1. AJUSTE: 'await using' para o processor e o fileStream.
-            // Isso resolve o erro "Cannot dispose while processing"
             await using var fileStreamForWhisper = File.OpenRead(audioPath);
             
             await using var processor = factory.CreateBuilder()
