@@ -8,7 +8,7 @@ using Supabase.Postgrest.Models;
 public class AudioData : BaseModel
 {
     [PrimaryKey("id", false)]
-    [JsonProperty("id")]
+    [Column("id")]
     public Guid Id { get; set; }
     
     [Column("file_name")]
@@ -19,6 +19,9 @@ public class AudioData : BaseModel
     
     [Column("file_url")]
     public string FileUrl { get; set; } =  string.Empty;
+    
+    [Column("transcription_preview")]
+    public string TranscriptionPreview { get; set; } = string.Empty;
     
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } =  DateTime.Now;
