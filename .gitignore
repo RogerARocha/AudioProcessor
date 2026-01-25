@@ -5,3 +5,4 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .env.local
+ggml-base-bin.bin
