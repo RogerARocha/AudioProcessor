@@ -5,27 +5,22 @@ using Supabase;
 
 namespace AudioProcessor.Services;
 
-public interface IAudioService
-{
-    Task<AudioData> Upload(IFormFile file);
-}
-
 public class AudioService : IAudioService
 {
     private readonly IAudioRepository _audioRepository; 
-    private readonly Client _supabaseClient;
+    private readonly IStorageService _storageService;
     private readonly IAudioCompressorService _audioCompressorService;
     private readonly IAudioTranscriptionService _audioTranscriptionService;
     private readonly HashSet<string> _allowedFormats;
 
     public AudioService(
         IAudioRepository audioRepository, 
-        Client supabaseClient, 
+        IStorageService storageService, 
         IAudioCompressorService audioCompressorService,
         IAudioTranscriptionService audioTranscriptionService)
     {
         _audioRepository = audioRepository;
-        _supabaseClient = supabaseClient;
+        _storageService = storageService;
         _audioCompressorService = audioCompressorService;
         _audioTranscriptionService = audioTranscriptionService;
         _allowedFormats = Enum.GetValues<AudioFormat>().Select(x => x.GetExtension()).ToHashSet();
@@ -68,8 +63,8 @@ public class AudioService : IAudioService
         }
 
         // upload
-        await _supabaseClient.Storage.From("Audios").Upload(fileBytes, nameInBucket);
-        var publicUrl = _supabaseClient.Storage.From("Audios").GetPublicUrl(nameInBucket);
+        await _storageService.Upload(fileBytes, nameInBucket);
+        var publicUrl = _storageService.GetPublicUrl(nameInBucket);
 
         var data = new AudioData
         {
