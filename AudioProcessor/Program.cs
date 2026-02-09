@@ -25,6 +25,7 @@ builder.Services.AddScoped(_ => new Client(url, key));
 //Services
 builder.Services.AddScoped<IAudioRepository, AudioRepository>();
 builder.Services.AddScoped<IAudioService, AudioService>();
+builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IAudioCompressorService, AudioCompressorService>();
 builder.Services.AddScoped<IAudioTranscriptionService, AudioTranscriptionService>();
 
