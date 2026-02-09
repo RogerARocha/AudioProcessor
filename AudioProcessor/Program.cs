@@ -5,6 +5,15 @@ using Supabase;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontEndPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
 //variaveis de ambiente
 Env.Load(".env.local");
 
@@ -16,7 +25,9 @@ builder.Services.AddScoped(_ => new Client(url, key));
 //Services
 builder.Services.AddScoped<IAudioRepository, AudioRepository>();
 builder.Services.AddScoped<IAudioService, AudioService>();
+builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IAudioCompressorService, AudioCompressorService>();
+builder.Services.AddScoped<IAudioTranscriptionService, AudioTranscriptionService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -29,6 +40,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("FrontEndPolicy");
 app.MapControllers();
 app.Run();

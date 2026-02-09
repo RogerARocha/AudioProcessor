@@ -3,11 +3,6 @@ using Xabe.FFmpeg;
 
 namespace AudioProcessor.Services;
 
-public interface IAudioCompressorService
-{
-    Task<string> CompressToAac(string inputPath, Guid taskId);
-    Task<string> ProcessToWav(string inputPath, Guid taskId);
-}
 
 public class AudioCompressorService : IAudioCompressorService
 {
@@ -54,8 +49,8 @@ public class AudioCompressorService : IAudioCompressorService
                 .AddParameter("-ar 16000")
                 .AddParameter("-ac 1")
                 .AddParameter("-c:a pcm_s16le")
-                .AddParameter("-y") // Overwrite output file if it exists
                 .SetOutput(outputPath)
+                .SetOverwriteOutput(true)//error
                 .Start();
 
             stopwatch.Stop();

@@ -1,8 +1,15 @@
-.idea/
-bin/
-obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
 .env.local
 ggml-base-bin.bin
+
+# Rider / IntelliJ
+.idea/
+*.sln.DotSettings.user
+
+# .NET
+bin/
+obj/
+*.user
+*.userosscache
