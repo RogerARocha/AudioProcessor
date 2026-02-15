@@ -29,6 +29,9 @@ builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IAudioCompressorService, AudioCompressorService>();
 builder.Services.AddScoped<IAudioTranscriptionService, AudioTranscriptionService>();
 
+builder.Services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+builder.Services.AddHostedService<AudioProcessingWorker>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
