@@ -53,7 +53,7 @@ public class AudioController : ControllerBase
                 FileName = a.FileName,
                 FileType = a.FileType,
                 FileUrl = a.FileUrl,
-                TranscriptionPreview =  a.TranscriptionPreview,
+                Transcription =  a.Transcription,
                 CreatedAt = a.CreatedAt
             });
             

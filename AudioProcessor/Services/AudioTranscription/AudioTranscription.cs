@@ -41,7 +41,6 @@ public class AudioTranscriptionService : IAudioTranscriptionService
             await foreach (var result in processor.ProcessAsync(fileStreamForWhisper))
             {
                 fullText += result.Text;
-                if (fullText.Length >= 60) break; 
             }
 
             stopwatch.Stop();
@@ -49,7 +48,7 @@ public class AudioTranscriptionService : IAudioTranscriptionService
             
             Console.WriteLine($"[TRANSCRIPTION] Success in {stopwatch.Elapsed.TotalSeconds:F2}s.");
 
-            return resultText.Length <= 50 ? resultText : resultText.Substring(0, 50) + "...";
+            return resultText;
         }
         catch (Exception ex)
         {

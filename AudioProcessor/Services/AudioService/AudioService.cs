@@ -75,7 +75,7 @@ public class AudioService : IAudioService
             FileName = file.FileName,
             FileType = type,
             FileUrl = publicUrl,
-            TranscriptionPreview = "Processing...", // Placeholder para a transcription
+            Transcription= "Processing...", // Placeholder para a transcription
             CreatedAt = DateTime.UtcNow
         };
         

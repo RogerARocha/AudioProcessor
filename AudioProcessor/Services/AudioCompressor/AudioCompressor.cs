@@ -66,4 +66,35 @@ public class AudioCompressorService : IAudioCompressorService
             throw;
         }
     }
+
+    public async Task<string> FilterToSlowed(string inputPath, Guid taskId)
+    {
+        var outputPath = Path.Combine(_tempPath, $"{taskId}_slowed.aac");
+        var stopwatch = Stopwatch.StartNew();
+
+        Console.WriteLine($"[FILTER] Starting Slowed conversion: {taskId}");
+
+        try
+        {
+            await FFmpeg.Conversions.New()
+                .AddParameter($"-i \"{inputPath}\"")
+                .AddParameter("-filter:a \"atempo=0.8\"") // O filtro de velocidade
+                .AddParameter("-c:a aac -b:a 128k")       // Formato de saída para o bucket
+                .SetOutput(outputPath)
+                .SetOverwriteOutput(true)
+                .Start();
+
+            stopwatch.Stop();
+            Console.WriteLine($"[FILTER] Slowed conversion complete: {taskId}");
+            Console.WriteLine($"[FILTER] Time Elapsed: {stopwatch.ElapsedMilliseconds}ms");
+
+            return outputPath;
+        }
+        catch (Exception ex)
+        {
+            stopwatch.Stop();
+            Console.WriteLine($"[FILTER] Error on Slowed filter for {taskId}: {ex.Message}");
+            throw;
+        }
+    }
 }

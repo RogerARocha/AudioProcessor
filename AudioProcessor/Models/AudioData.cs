@@ -21,7 +21,7 @@ public class AudioData : BaseModel
     public string FileUrl { get; set; } =  string.Empty;
     
     [Column("transcription_preview")]
-    public string TranscriptionPreview { get; set; } = string.Empty;
+    public string Transcription { get; set; } = string.Empty;
     
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } =  DateTime.Now;
